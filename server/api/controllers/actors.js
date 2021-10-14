@@ -13,6 +13,15 @@ router.get('/', async (req, res) => {
     }
 })
 
+// actor by index route 
+router.get('/:id', async (req, res) => {
+    try {
+        const actor = await Actor.findById(parseInt(req.params.id))
+        res.json(actor)
+    } catch(err) {
+        res.status(404).json({err})
+    }
+}) 
 // Create actor route
 router.post('/', async (req, res) => {
     try {

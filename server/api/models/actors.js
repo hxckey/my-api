@@ -20,6 +20,18 @@ class Actor {
         })
     }
 
+    static getById (id) {
+        return new Promise (async (resolve, reject) => {
+            try {
+                const actorData = await db.query(`SELECT * FROM actors WHERE id = $1;`, [id]);
+                const actor = new Actor(actorData.rows[0]);
+                resolve(actor);
+            } catch (err) {
+                reject("Could not find actor by ID")
+            }
+        })
+    }
+
     static create(name, films, awards){
         return new Promise (async (resolve, reject) => {
             try {
