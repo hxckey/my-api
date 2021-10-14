@@ -13,6 +13,16 @@ router.get('/', async (req, res) => {
     }
 })
 
+// find movie by id 
+router.get('/:id', async (req, res) => {
+    try {
+        const movie = await Movie.findById(parseInt(req.params.id))
+        res.json(movie)
+    } catch(err) {
+        res.status(404).json({err})
+    }
+})
+
 // Create movie route
 router.post('/', async (req, res) => {
     try {

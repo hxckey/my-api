@@ -20,6 +20,18 @@ class Movie {
         })
     }
 
+    static findById(id) {
+        return new Promise (async (resolve, reject) => {
+            try {
+                const movieData = await db.query(`SELECT * FROM films WHERE id = $1`, [id]);
+                const movie = new Movie(movieData.rows[0]);
+                resolve(movie);
+            } catch(err) {
+                reject("Error finding movie")
+            }
+        })
+    }
+
     static create(name, director, review){
         return new Promise (async (resolve, reject) => {
             try {

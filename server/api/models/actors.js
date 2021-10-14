@@ -20,7 +20,7 @@ class Actor {
         })
     }
 
-    static getById (id) {
+    static findById (id) {
         return new Promise (async (resolve, reject) => {
             try {
                 const actorData = await db.query(`SELECT * FROM actors WHERE id = $1;`, [id]);
