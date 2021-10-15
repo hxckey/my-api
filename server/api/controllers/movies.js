@@ -33,6 +33,17 @@ router.get('/score/:reviewScore', async (req, res) => {
     }
 })
 
+// search for movies by a certain director
+// issue with adding director name into the url - consider changing to director id
+router.get('/director/:director', async(req, res) => {
+    try {
+        const movies = await Movie.findByDirector(req.params.director)
+        res.json(movies)
+    } catch(err) {
+        res.status(404).json({err})
+    }
+})
+
 // Create movie route
 router.post('/', async (req, res) => {
     try {
