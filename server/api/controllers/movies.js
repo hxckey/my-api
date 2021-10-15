@@ -23,6 +23,16 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+// find movies with a minimum score
+router.get('/score/:reviewScore', async (req, res) => {
+    try {
+        const movie = await Movie.findByScore(parseInt(req.params.reviewScore))
+        res.json(movie)
+    } catch(err) {
+        res.status(404).json({err})
+    }
+})
+
 // Create movie route
 router.post('/', async (req, res) => {
     try {

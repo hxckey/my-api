@@ -32,6 +32,18 @@ class Movie {
         })
     }
 
+    static findByScore(reviewScore) {
+        return new Promise (async (resolve, reject) => {
+            try {
+                const movieData = await db.query(`SELECT * FROM films WHERE review >= $1`, [reviewScore]);
+                const movies = movieData.rows.map(d => new Movie(d))
+                resolve(movies)
+            } catch(err) {
+                reject("Error retrieving movies")
+            }
+        }) 
+    }
+
     static create(name, director, review){
         return new Promise (async (resolve, reject) => {
             try {
